@@ -2,7 +2,11 @@
    WEDDING WEBSITE — index.js
 =================================== */
 
-// ── 1. Loader
+
+/* ===================================
+   1. LOADER
+=================================== */
+
 window.addEventListener('load', () => {
 
   setTimeout(() => {
@@ -18,8 +22,12 @@ window.addEventListener('load', () => {
 });
 
 
-// ── 2. Progress Bar
-const progressBar = document.getElementById('progressBar');
+/* ===================================
+   2. PROGRESS BAR
+=================================== */
+
+const progressBar =
+  document.getElementById('progressBar');
 
 window.addEventListener('scroll', () => {
 
@@ -35,12 +43,16 @@ window.addEventListener('scroll', () => {
       ? (scrollTop / docHeight) * 100
       : 0;
 
-  progressBar.style.width = pct + '%';
+  progressBar.style.width =
+    pct + '%';
 
 });
 
 
-// ── 3. Floating petals
+/* ===================================
+   3. FLOATING PETALS
+=================================== */
+
 function spawnPetals() {
 
   const container =
@@ -59,14 +71,16 @@ function spawnPetals() {
 
   for (let i = 0; i < count; i++) {
 
-    const el = document.createElement('span');
+    const el =
+      document.createElement('span');
 
     el.classList.add('petal');
 
     el.textContent =
       symbols[
         Math.floor(
-          Math.random() * symbols.length
+          Math.random() *
+          symbols.length
         )
       ];
 
@@ -89,82 +103,125 @@ function spawnPetals() {
 }
 
 
-// ── 4. Countdown Timer
-(function startCountdown() {
+/* ===================================
+   4. DYNAMIC COUNTDOWN
+=================================== */
 
-  const target =
-    new Date(
-      'June 14, 2026 00:00:00'
-    ).getTime();
+(function dynamicCountdown() {
+
+  // Wedding Date
+  const weddingDate =
+    new Date(2026, 5, 14, 11, 0, 0);
 
   const elDays =
     document.getElementById('days');
 
-  const elHrs =
+  const elHours =
     document.getElementById('hours');
 
-  const elMins =
+  const elMinutes =
     document.getElementById('minutes');
 
-  const elSecs =
+  const elSeconds =
     document.getElementById('seconds');
 
-  function pad(n) {
 
-    return String(
-      Math.max(0, n)
-    ).padStart(2, '0');
+  function formatNumber(num) {
+
+    return String(num)
+      .padStart(2, '0');
 
   }
 
-  function tick() {
 
-    const diff = target - Date.now();
+  function updateCountdown() {
 
-    if (diff <= 0) {
+    const now = new Date();
 
-      elDays.textContent =
-      elHrs.textContent =
-      elMins.textContent =
-      elSecs.textContent =
-      '00';
+    const difference =
+      weddingDate - now;
+
+
+    if (difference <= 0) {
+
+      elDays.textContent = '00';
+      elHours.textContent = '00';
+      elMinutes.textContent = '00';
+      elSeconds.textContent = '00';
+
+      const title =
+        document.querySelector(
+          '.countdown-section .section-title'
+        );
+
+      if (title) {
+
+        title.innerHTML =
+          '🎉 Wedding Celebration Started ✨';
+
+      }
 
       return;
 
     }
 
-    elDays.textContent = pad(
-      Math.floor(diff / 86400000)
-    );
 
-    elHrs.textContent = pad(
+    const days =
       Math.floor(
-        (diff % 86400000) / 3600000
-      )
-    );
+        difference /
+        (1000 * 60 * 60 * 24)
+      );
 
-    elMins.textContent = pad(
+    const hours =
       Math.floor(
-        (diff % 3600000) / 60000
-      )
-    );
+        (
+          difference /
+          (1000 * 60 * 60)
+        ) % 24
+      );
 
-    elSecs.textContent = pad(
+    const minutes =
       Math.floor(
-        (diff % 60000) / 1000
-      )
-    );
+        (
+          difference /
+          (1000 * 60)
+        ) % 60
+      );
+
+    const seconds =
+      Math.floor(
+        (
+          difference / 1000
+        ) % 60
+      );
+
+
+    elDays.textContent =
+      formatNumber(days);
+
+    elHours.textContent =
+      formatNumber(hours);
+
+    elMinutes.textContent =
+      formatNumber(minutes);
+
+    elSeconds.textContent =
+      formatNumber(seconds);
 
   }
 
-  tick();
 
-  setInterval(tick, 1000);
+  updateCountdown();
+
+  setInterval(updateCountdown, 1000);
 
 })();
 
 
-// ── 5. Scroll reveal
+/* ===================================
+   5. SCROLL REVEAL
+=================================== */
+
 const revealEls =
   document.querySelectorAll('.reveal');
 
@@ -196,12 +253,17 @@ const revealObserver =
 
   );
 
-revealEls.forEach((el) =>
-  revealObserver.observe(el)
-);
+revealEls.forEach((el) => {
+
+  revealObserver.observe(el);
+
+});
 
 
-// ── 6. RSVP FORM + PREMIUM POPUP
+/* ===================================
+   6. RSVP FORM + GOOGLE SHEETS
+=================================== */
+
 const form =
   document.getElementById('rsvpForm');
 
@@ -218,10 +280,16 @@ const closePopup =
   document.getElementById('closePopup');
 
 
+// Google Apps Script URL
+const SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbzjDCOdhpJgUbky-ROhP6ghuWkY7XxksBWfDZ4t-Wv_NXhbUuvTuWY2Zc9yeMMIMPNIEQ/exec';
+
+
 // Submit form
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
 
   e.preventDefault();
+
 
   const name =
     document
@@ -240,6 +308,17 @@ form.addEventListener('submit', (e) => {
       .getElementById('attendance')
       .value;
 
+  const guests =
+    document
+      .getElementById('guests')
+      .value;
+
+  const message =
+    document
+      .getElementById('message')
+      .value
+      .trim();
+
 
   // Validation
   if (
@@ -255,28 +334,63 @@ form.addEventListener('submit', (e) => {
   }
 
 
-  // Loading button
-  btnText.style.display = 'none';
-  btnLoader.style.display = 'inline';
+  // Loading
+  btnText.style.display =
+    'none';
+
+  btnLoader.style.display =
+    'inline';
 
 
-  // Simulate API submit
-  setTimeout(() => {
+  // Form Data
+  const formData = {
+
+    name,
+
+    phone,
+
+    attendance,
+
+    guests: guests || 1,
+
+    message: message || '-',
+
+    createdAt:
+      new Date().toLocaleString()
+
+  };
+
+
+  try {
+
+    // Send data to Google Sheet
+    await fetch(SCRIPT_URL, {
+
+      method: 'POST',
+
+      body: JSON.stringify(formData)
+
+    });
+
 
     // Reset button
-    btnText.style.display = 'inline';
-    btnLoader.style.display = 'none';
+    btnText.style.display =
+      'inline';
+
+    btnLoader.style.display =
+      'none';
 
 
-    // Show popup
-    popupOverlay.classList.add('active');
+    // Success popup
+    popupOverlay
+      .classList.add('active');
 
 
-    // Vibrate mobile
+    // Mobile vibration
     navigator.vibrate?.(100);
 
 
-    // Popup particles
+    // Romantic particles
     createPopupParticles();
 
 
@@ -292,12 +406,28 @@ form.addEventListener('submit', (e) => {
 
     }, 7000);
 
-  }, 1400);
+  }
+
+  catch (err) {
+
+    console.error(err);
+
+    alert(
+      'Something went wrong!'
+    );
+
+    btnText.style.display =
+      'inline';
+
+    btnLoader.style.display =
+      'none';
+
+  }
 
 });
 
 
-// ── Close popup button
+// Close popup button
 closePopup.addEventListener('click', () => {
 
   popupOverlay
@@ -306,7 +436,7 @@ closePopup.addEventListener('click', () => {
 });
 
 
-// ── Close popup outside click
+// Close popup outside click
 popupOverlay.addEventListener('click', (e) => {
 
   if (e.target === popupOverlay) {
@@ -319,7 +449,7 @@ popupOverlay.addEventListener('click', (e) => {
 });
 
 
-// ── Shake form animation
+// Shake form
 function shakeForm() {
 
   form.style.animation = 'none';
@@ -332,7 +462,10 @@ function shakeForm() {
 }
 
 
-// ── Popup floating particles
+/* ===================================
+   7. POPUP PARTICLES
+=================================== */
+
 function createPopupParticles() {
 
   const symbols = [
@@ -351,11 +484,13 @@ function createPopupParticles() {
     particle.innerHTML =
       symbols[
         Math.floor(
-          Math.random() * symbols.length
+          Math.random() *
+          symbols.length
         )
       ];
 
-    particle.style.position = 'fixed';
+    particle.style.position =
+      'fixed';
 
     particle.style.left =
       (window.innerWidth / 2) + 'px';
@@ -366,11 +501,15 @@ function createPopupParticles() {
     particle.style.fontSize =
       (Math.random() * 18 + 12) + 'px';
 
-    particle.style.pointerEvents = 'none';
+    particle.style.pointerEvents =
+      'none';
 
-    particle.style.zIndex = '999999';
+    particle.style.zIndex =
+      '999999';
 
-    document.body.appendChild(particle);
+    document.body.appendChild(
+      particle
+    );
 
 
     const x =
@@ -386,6 +525,7 @@ function createPopupParticles() {
         {
           transform:
             'translate(0,0) scale(1)',
+
           opacity: 1
         },
 
@@ -399,6 +539,7 @@ function createPopupParticles() {
 
       {
         duration: 1800,
+
         easing:
           'cubic-bezier(.2,.8,.2,1)'
       }
@@ -417,9 +558,12 @@ function createPopupParticles() {
 }
 
 
-// ── 7. Cursor glow (desktop only)
+/* ===================================
+   8. CURSOR GLOW
+=================================== */
+
 if (
-  window.matchMedia('(pointer: fine)')
+  window.matchMedia('(pointer:fine)')
     .matches
 ) {
 
@@ -430,7 +574,9 @@ if (
       const glow =
         document.createElement('div');
 
-      glow.classList.add('cursor-glow');
+      glow.classList.add(
+        'cursor-glow'
+      );
 
       glow.style.left =
         e.pageX + 'px';
@@ -438,7 +584,9 @@ if (
       glow.style.top =
         e.pageY + 'px';
 
-      document.body.appendChild(glow);
+      document.body.appendChild(
+        glow
+      );
 
       setTimeout(() => {
 
@@ -452,7 +600,10 @@ if (
 }
 
 
-// ── 8. Floating romantic sparkles
+/* ===================================
+   9. FLOATING SPARKLES
+=================================== */
+
 setInterval(() => {
 
   const sparkle =
@@ -460,23 +611,30 @@ setInterval(() => {
 
   sparkle.innerHTML = '✨';
 
-  sparkle.style.position = 'fixed';
+  sparkle.style.position =
+    'fixed';
 
   sparkle.style.left =
     Math.random() * 100 + 'vw';
 
-  sparkle.style.top = '-20px';
+  sparkle.style.top =
+    '-20px';
 
   sparkle.style.fontSize =
     (Math.random() * 10 + 10) + 'px';
 
-  sparkle.style.pointerEvents = 'none';
+  sparkle.style.pointerEvents =
+    'none';
 
-  sparkle.style.zIndex = '999';
+  sparkle.style.zIndex =
+    '999';
 
-  sparkle.style.opacity = '0.8';
+  sparkle.style.opacity =
+    '0.8';
 
-  document.body.appendChild(sparkle);
+  document.body.appendChild(
+    sparkle
+  );
 
 
   sparkle.animate(
@@ -485,6 +643,7 @@ setInterval(() => {
       {
         transform:
           'translateY(0px) rotate(0deg)',
+
         opacity: 0
       },
 
@@ -495,6 +654,7 @@ setInterval(() => {
       {
         transform:
           'translateY(100vh) rotate(360deg)',
+
         opacity: 0
       }
     ],
@@ -517,7 +677,10 @@ setInterval(() => {
 
 }, 900);
 
-// ── 9. Romantic Background Music
+
+/* ===================================
+   10. ROMANTIC MUSIC
+=================================== */
 
 const bgMusic =
   document.getElementById('bgMusic');
@@ -528,25 +691,58 @@ const musicToggle =
 const musicIcon =
   document.getElementById('musicIcon');
 
-let isPlaying = false;
+
+// Music volume
+bgMusic.volume = 0.4;
 
 
-// Auto play after first interaction
+// Auto play
+window.addEventListener(
+  'load',
+  async () => {
+
+    try {
+
+      await bgMusic.play();
+
+      musicToggle.classList.add(
+        'playing'
+      );
+
+      musicIcon.innerHTML =
+        '🎶';
+
+    }
+
+    catch (err) {
+
+      console.log(
+        'Autoplay blocked'
+      );
+
+    }
+
+  }
+);
+
+
+// Mobile autoplay support
 document.addEventListener(
+
   'click',
+
   () => {
 
-    if (!isPlaying) {
-
-      bgMusic.volume = 0.4;
+    if (bgMusic.paused) {
 
       bgMusic.play();
 
-      isPlaying = true;
+      musicToggle.classList.add(
+        'playing'
+      );
 
-      musicToggle.classList.add('playing');
-
-      musicIcon.innerHTML = '🎶';
+      musicIcon.innerHTML =
+        '🎶';
 
     }
 
@@ -557,31 +753,38 @@ document.addEventListener(
 );
 
 
-// Toggle button
-musicToggle.addEventListener('click', () => {
+// Toggle music
+musicToggle.addEventListener(
+  'click',
 
-  if (isPlaying) {
+  () => {
 
-    bgMusic.pause();
+    if (bgMusic.paused) {
 
-    isPlaying = false;
+      bgMusic.play();
 
-    musicToggle.classList.remove('playing');
+      musicToggle.classList.add(
+        'playing'
+      );
 
-    musicIcon.innerHTML = '🎵';
+      musicIcon.innerHTML =
+        '🎶';
+
+    }
+
+    else {
+
+      bgMusic.pause();
+
+      musicToggle.classList.remove(
+        'playing'
+      );
+
+      musicIcon.innerHTML =
+        '🎵';
+
+    }
 
   }
 
-  else {
-
-    bgMusic.play();
-
-    isPlaying = true;
-
-    musicToggle.classList.add('playing');
-
-    musicIcon.innerHTML = '🎶';
-
-  }
-
-});
+);
