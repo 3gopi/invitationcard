@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Forever Together — You & Love</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <!-- Progress Bar -->
@@ -83,8 +87,10 @@
       <div class="story-divider">
         <span>❤</span>
       </div>
-      <p>Every beautiful love story starts with a simple hello. Through smiles, memories, laughter, and endless support, we found a forever within each other.</p>
-      <p>This journey became magical because we walked together. And now, we invite you to celebrate the most special chapter of our lives.</p>
+      <p>Every beautiful love story starts with a simple hello. Through smiles, memories, laughter, and endless support,
+        we found a forever within each other.</p>
+      <p>This journey became magical because we walked together. And now, we invite you to celebrate the most special
+        chapter of our lives.</p>
     </div>
   </section>
 
@@ -134,19 +140,23 @@
     <h2 class="section-title">Beautiful Memories</h2>
     <div class="gallery">
       <div class="gallery-item gi-tall reveal">
-        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop" alt="Couple photo" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop"
+          alt="Couple photo" loading="lazy">
         <div class="gallery-overlay"><span>Our Story</span></div>
       </div>
       <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Wedding" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop"
+          alt="Wedding" loading="lazy">
         <div class="gallery-overlay"><span>Together</span></div>
       </div>
       <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=800&auto=format&fit=crop" alt="Flowers" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=800&auto=format&fit=crop"
+          alt="Flowers" loading="lazy">
         <div class="gallery-overlay"><span>Blooming Love</span></div>
       </div>
       <div class="gallery-item gi-wide reveal">
-        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop" alt="Celebration" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=1200&auto=format&fit=crop"
+          alt="Celebration" loading="lazy">
         <div class="gallery-overlay"><span>Celebrate</span></div>
       </div>
     </div>
@@ -182,33 +192,33 @@
 
 
   <!-- RSVP POPUP -->
-<div class="popup-overlay" id="popupOverlay">
-  <div class="rsvp-popup">
-    
-    <div class="popup-glow"></div>
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="rsvp-popup">
 
-    <div class="popup-icon-wrap">
-      <div class="popup-heart">❤</div>
+      <div class="popup-glow"></div>
+
+      <div class="popup-icon-wrap">
+        <div class="popup-heart">❤</div>
+      </div>
+
+      <h2>Thank You!</h2>
+
+      <p class="popup-message">
+        Your RSVP has been successfully submitted.
+        <br>
+        We are excited to celebrate this beautiful day with you ✨
+      </p>
+
+      <div class="popup-details">
+        <span>Forever Begins Here</span>
+      </div>
+
+      <button class="popup-btn" id="closePopup">
+        Close
+      </button>
+
     </div>
-
-    <h2>Thank You!</h2>
-
-    <p class="popup-message">
-      Your RSVP has been successfully submitted.
-      <br>
-      We are excited to celebrate this beautiful day with you ✨
-    </p>
-
-    <div class="popup-details">
-      <span>Forever Begins Here</span>
-    </div>
-
-    <button class="popup-btn" id="closePopup">
-      Close
-    </button>
-
   </div>
-</div>
 
   <!-- RSVP -->
   <section class="rsvp-section">
@@ -265,24 +275,22 @@
 
 
   <!-- Romantic Background Music -->
-<div class="music-player" id="musicPlayer">
+  <div class="music-player" id="musicPlayer">
 
-  <button id="musicToggle" class="music-btn">
+    <button id="musicToggle" class="music-btn">
 
-    <span id="musicIcon">🎵</span>
+      <span id="musicIcon">🎵</span>
 
-  </button>
+    </button>
 
-</div>
+  </div>
 
-<audio
-  id="bgMusic"
-  loop
->
-  <source src="music.mp3" type="audio/mp3">
-</audio>
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
 
-
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
   <script src="index.js"></script>
 </body>
+
 </html>
