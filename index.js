@@ -109,7 +109,6 @@ function spawnPetals() {
 
 (function dynamicCountdown() {
 
-  // Wedding Date
   const weddingDate =
     new Date(2026, 5, 14, 11, 0, 0);
 
@@ -282,7 +281,7 @@ const closePopup =
 
 // Google Apps Script URL
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbzjDCOdhpJgUbky-ROhP6ghuWkY7XxksBWfDZ4t-Wv_NXhbUuvTuWY2Zc9yeMMIMPNIEQ/exec';
+  'https://script.google.com/macros/s/AKfycbzlA7BRgyAS7E-3Hqpu3dPBm66nA2rJmXDWq_v48wAUQW1UzfKv93fhM0kec1JRZmWZ9w/exec';
 
 
 // Submit form
@@ -342,7 +341,7 @@ form.addEventListener('submit', async (e) => {
     'inline';
 
 
-  // Form Data
+  // Form data
   const formData = {
 
     name,
@@ -363,17 +362,25 @@ form.addEventListener('submit', async (e) => {
 
   try {
 
-    // Send data to Google Sheet
+    // Send to Google Sheets
     await fetch(SCRIPT_URL, {
 
       method: 'POST',
 
-      body: JSON.stringify(formData)
+      mode: 'no-cors',
+
+      headers: {
+        'Content-Type':
+          'application/json'
+      },
+
+      body:
+        JSON.stringify(formData)
 
     });
 
 
-    // Reset button
+    // Reset loading
     btnText.style.display =
       'inline';
 
@@ -386,11 +393,11 @@ form.addEventListener('submit', async (e) => {
       .classList.add('active');
 
 
-    // Mobile vibration
+    // Vibration
     navigator.vibrate?.(100);
 
 
-    // Romantic particles
+    // Particles
     createPopupParticles();
 
 
@@ -416,6 +423,7 @@ form.addEventListener('submit', async (e) => {
       'Something went wrong!'
     );
 
+
     btnText.style.display =
       'inline';
 
@@ -436,7 +444,7 @@ closePopup.addEventListener('click', () => {
 });
 
 
-// Close popup outside click
+// Close popup outside
 popupOverlay.addEventListener('click', (e) => {
 
   if (e.target === popupOverlay) {
@@ -449,10 +457,11 @@ popupOverlay.addEventListener('click', (e) => {
 });
 
 
-// Shake form
+// Shake animation
 function shakeForm() {
 
-  form.style.animation = 'none';
+  form.style.animation =
+    'none';
 
   form.offsetHeight;
 
@@ -609,7 +618,8 @@ setInterval(() => {
   const sparkle =
     document.createElement('div');
 
-  sparkle.innerHTML = '✨';
+  sparkle.innerHTML =
+    '✨';
 
   sparkle.style.position =
     'fixed';
@@ -663,7 +673,8 @@ setInterval(() => {
       duration:
         Math.random() * 3000 + 4000,
 
-      easing: 'linear'
+      easing:
+        'linear'
     }
 
   );
@@ -692,7 +703,7 @@ const musicIcon =
   document.getElementById('musicIcon');
 
 
-// Music volume
+// Volume
 bgMusic.volume = 0.4;
 
 
@@ -726,7 +737,7 @@ window.addEventListener(
 );
 
 
-// Mobile autoplay support
+// Mobile support
 document.addEventListener(
 
   'click',
